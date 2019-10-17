@@ -1,2 +1,2 @@
 # BunnyBlog by Team BunnyTruffles
-### Roster: Ahmed Sultan, Jeff Lin, and Leia Park
+### Roster: Jeff Lin, Leia Park and Ahmed Sultan
