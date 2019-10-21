@@ -1,0 +1,5 @@
+ahmedS -- 2019-10-21 6:40 AM
+Added devlog and design document
+
+ahmedS -- 2019-10-21 10:06 AM
+Edited devlog, and actually pushed
