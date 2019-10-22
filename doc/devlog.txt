@@ -3,3 +3,13 @@ Added devlog and design document
 
 ahmedS -- 2019-10-21 10:06 AM
 Edited devlog, and actually pushed
+
+jeffL -- 2019-10-21 11:18
+INNER JOIN checks corresponding columns in two tables and for shared values (ID) and combines information from both tables at this row as an entry in a new table. Value (ID) must exist in both tables.
+LEFT JOIN combines all the values (ID) from corresponding columns in two tables and aligns information in each row from both tables as an entry in a new table. Value (ID) may exist in one table but not in the other.
+CROSS JOIN performs Cartesian multiplication on a given number of table columns to create a new table of unique entries which each contain unique combination of column values.
+"Programming Sucks" has a humorous and satirical take on the most hair-pulling parts of programming. The author uses real life metaphors creatively to represent programming frustrations. Code will never be perfect!
+Actions for Success:
+- Checking devlog before work sessions to remain updated on latest changes and progress of teammates.
+- Cross-check each others code to ensure practicality and logical sense.
+- Comment frequently to make code more quickly comprehendible.
