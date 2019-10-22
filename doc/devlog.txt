@@ -15,7 +15,10 @@ Actions for Success:
 - Comment frequently to make code more quickly comprehendible.
 
 ahmedS -- 2019-10-22 10:05 AM
-Edited devlog (current version: v1), with following changes
+Edited design document (current version: v1) with the following changes:
 - slight reorganization
 - deletion of duplicate tasks section
 - creation of example tables in project database
+
+ahmedS -- 2019-10-22 02:31 PM
+Edited devlog.txt for clarity
