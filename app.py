@@ -15,6 +15,12 @@ app = Flask(__name__)
 def occupyflaskst():
     return render_template('discover.html')
 
+@app.route("/login")
+def login():
+    print(request)
+    print(request.args)
+    return render_template('login.html')
+
 # @app.route("/auth")
 # def authenticate():
 #     print(app)                      # Prints out Flask app name
