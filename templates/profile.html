@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends "template.html" %}
+
+{% block head %} | Profiel{% endblock %}
+
+{% block headerbuttons %}
+<form>
+  <button title="discover" type="submit" formaction="/">Discover</button>
+  <button title="login" type="submit" formaction="/login">Log In</button>
+  <button title="register" type="submit">Register</button>
+</form>
+{% endblock %}
+
+{% block body %}
+<table width="100%">
+  <tr>
+    <td width="20%">
+      <h3>Users</h3>
+    </td>
+    <td>
+      <h3>User</h3>
+      <table width="100%" style="border: 1px solid black">
+        <textarea rows="4" cols="100"></textarea>
+        <tr><td></td></tr>
+      </table>
+
+    </td>
+  </tr>
+</table>
+{% endblock %}
