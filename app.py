@@ -1,6 +1,6 @@
 # Ahmed Sultan, Jeff Lin, Leia Park [BunnyTruffles]
-# SoftDev1 PD 9
-# P00
+# SoftDev1 pd 9
+# p00
 # 2019-10-28
 
 import cgi
