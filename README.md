@@ -9,7 +9,7 @@ BunnyBlog is a blog website designed by Team BunnyTruffles. Through BunnyBlog, v
 1. Clone our repo from GitHub.
 2. Initiate a Flask virtual environment.
 3. Navigate to the BunnyBlog directory.
-4. Run: *$ python app.py*
+4. Run: `$ python app.py`
 5. Open a web browser and go to 127.0.0.1:5000
 
 #### Using BunnyBlog
