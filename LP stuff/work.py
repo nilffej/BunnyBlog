@@ -13,16 +13,13 @@ app = Flask(__name__)
 app.secret_key = urandom(32)
 usr = "rando"
 
-###### users database setup
 DB_FILE="database.db"
 
-db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
-c = db.cursor()               #facilitate db ops
+db = sqlite3.connect(DB_FILE) # open if file exists, otherwise create
+c = db.cursor()               # facilitate db ops
 
-retrieve = """
-     SELECT username, password
-     FROM users
-"""
+retrieve = 'SELECT username, password FROM users;'
+
 get = db.execute(retrieve)
 userList = get.fetchall()
 
