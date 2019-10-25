@@ -14,7 +14,7 @@ app.secret_key = urandom(32)
 usr = "rando"
 
 ###### users database setup
-DB_FILE="people.db"
+DB_FILE="database.db"
 
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()               #facilitate db ops
