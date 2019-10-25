@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>BunnyBlog</title>
+  </head>
+  <body style="font-family: Lucida Console">
+    <table width="100%">
+      <tr>
+        <td width="70%">
+          <h1>BunnyBlog</h1>
+        </td>
+      </tr>
+    </table>
+    
+    {% if msg %}
+    <h3>{{ msg }}</h3>
+    {% endif %}
+    
+    <form action="/login" method="GET">
+    	<input type="text" name="username">
+    	<input type="password" name="password">
+    	<input type="submit"
+    </form>
+    
+    <form action="/register">
+    	<button type="submit">Register</button>
+    </form>
+    
+  </body>
+</html>
