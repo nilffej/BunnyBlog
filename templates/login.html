@@ -1,21 +1,24 @@
- <!DOCTYPE html>
-<html>
-	<head>
-	<title>BunnyBlog</title>
-	</head>
+<!DOCTYPE html>
+{% extends "template.html" %}
 
-	<body>
-	
-	<form action="/login" method="GET">
-		<input type="text" name="usrname">
-		<input type="password" name="pswrd">
-		<input type="submit" value="login">
-	</form>
-	
-	<form action="/register">
-		<input type="submit" value="register">
-	</form>
-	
-	</body>
+{% block head %} | Discover{% endblock %}
 
-</html> 
+{% block body %}
+{% if msg %}
+<h3>{{ msg }}</h3>
+{% endif %}
+  <form action="/login" method="GET" align="center">
+    Username<br>
+  	<input type="text" name="username"><br><br>
+    Password<br>
+  	<input type="password" name="password"><br><br>
+  	<button type="submit">Submit</button>
+
+    <form action="/register">
+      <button type="submit">Register</button>
+    </form>
+  </form>
+  {% endblock %}
+
+  </body>
+</html>

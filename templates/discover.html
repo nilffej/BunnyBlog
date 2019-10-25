@@ -1,42 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>BunnyBlog</title>
-  </head>
-  <body style="font-family: Lucida Console">
-    <table width="100%">
-      <tr>
-        <td width="70%">
-          <h1>BunnyBlog</h1>
-          <p>by Ahmed Sultan, Jeff Lin, and Leia Park</p>
-        </td>
+{% extends "template.html" %}
 
-        <td align="right">
-          <form action='/login'>
-            <button title="discover" type="submit">Discover</button>
-            <button title="login" type="submit">Log In</button>
-            <button title="register" type="submit">Register</button>
-          </form>
-        </td>
-      </tr>
-    </table>
+{% block head %} | Discover{% endblock %}
 
-    <table width="100%">
-      <tr>
-        <td width="20%">
-          <h3>Users</h3>
-        </td>
-        <td>
-          <h3>Discover</h3>
+{% block headerbuttons %}
+<form>
+  <button title="discover" type="submit" formaction="/">Discover</button>
+  <button title="login" type="submit" formaction="/login">Log In</button>
+  <button title="register" type="submit">Register</button>
+</form>
+{% endblock %}
 
-          <table width="100%" style="border: 1px solid black">
-            <tr><td></td></tr>
-          </table>
+{% block body %}
+<table width="100%">
+  <tr>
+    <td width="20%">
+      <h3>Users</h3>
+    </td>
+    <td>
+      <h3>Discover</h3>
 
-        </td>
-      </tr>
-    </table>
+      <table width="100%" style="border: 1px solid black">
+        <tr><td></td></tr>
+      </table>
 
-  </body>
-</html>
+    </td>
+  </tr>
+</table>
+{% endblock %}
