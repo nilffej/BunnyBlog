@@ -13,5 +13,5 @@ BunnyBlog is a blogging website designed by Team BunnyTruffles. Through BunnyBlo
 5. Open a web browser and go to 127.0.0.1:5000
 
 #### Navigating Our Website
-- The Discover page will be the default homepage for BunnyBog
+- The Discover page will be the default homepage for BunnyBlog
 - Navigate to the Log In page by clicking the "Log In" button located on the top right corner
