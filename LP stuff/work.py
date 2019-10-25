@@ -19,15 +19,6 @@ DB_FILE="people.db"
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()               #facilitate db ops
 
-c.execute("CREATE TABLE users (username TEXT, password TEXT, siteLocation TEXT,  PRIMARY KEY (username));")
-"""
-ERROR
-Traceback (most recent call last):
-  File "/Users/kimi/Desktop/BunnyBlog/LP stuff/work.py", line 22, in <module>
-    c.execute("CREATE TABLE users (username TEXT, password TEXT, siteLocation TEXT,  PRIMARY KEY (username));")
-sqlite3.OperationalError: table users already exists
-"""
-
 retrieve = """
      SELECT username, password
      FROM users
