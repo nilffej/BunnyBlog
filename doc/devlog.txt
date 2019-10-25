@@ -40,3 +40,6 @@ Changes to design doc:
 - Added examples of databases for blogs and users
 - Explained changes in nature of site if user is logged into a session
 - Elaborated on methods of filtering databases
+
+sultanA -- 2019-10-25 6:23 AM
+Made small changes to the README.md
