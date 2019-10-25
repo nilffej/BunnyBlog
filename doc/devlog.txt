@@ -36,3 +36,7 @@ Fixed login page formatting from Leia's progress
 Created template and converted HTML pages to children of template using Jinja
 Distinguished button functions for Discover page
 Updated README instructions
+Changes to design doc:
+- Added examples of databases for blogs and users
+- Explained changes in nature of site if user is logged into a session
+- Elaborated on methods of filtering databases
