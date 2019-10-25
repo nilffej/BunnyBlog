@@ -10,6 +10,7 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask import url_for
+from flask import session
 from os import urandom
 
 app = Flask(__name__)
@@ -17,7 +18,7 @@ app = Flask(__name__)
 app.secret_key = urandom(32)
 usr = "rando"
 
-DB_FILE = "database.db"
+DB_FILE = "bunnyblog.db"
 
 db = sqlite3.connect(DB_FILE)  # open if file exists, otherwise create
 c = db.cursor()               # facilitate db ops
@@ -29,9 +30,7 @@ userList = get.fetchall()
 
 @app.route("/")
 def root():
-  if "usr" in session:
-    return redirect(url_for("myBlog"))
-  return redirect(url_for("login"))
+  return render_template('discover.html')
 
 app.route("/login", methods=["GET"])
 def login(msg=""):
@@ -39,7 +38,7 @@ def login(msg=""):
   pswrdCheck = False
   if request.args:
     # Checks for all inputs to be filled
-    if not bool(request.args["usrname"]) or not bool(request.args["password"]):
+    if not bool(request.args["username"]) or not bool(request.args["password"]):
       msg = "Fill in all the information"
     else:
       for row in userList:
@@ -59,7 +58,7 @@ def register(msg=""):
   usrCheck = False
   if request.args:
      # Checks for all inputs to be filled
-     if not bool(request.args["usrname"]) or not bool(request.args["password"]):
+     if not bool(request.args["username"]) or not bool(request.args["password"]):
        msg = "Fill in all the information"
      else:
        for row in userList:
@@ -72,7 +71,7 @@ def register(msg=""):
             insert = "INSERT INTO users VALUES ('{}', {});".format(
                 request.args["username"], request.args["password"])
             c.execute(insert)
-            return redirect(url_for("login"))
+            return redirect("login")
        else:
             msg = "passwords do not match"
   return render_template("register.html", msg=msg)
