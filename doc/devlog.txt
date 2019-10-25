@@ -41,5 +41,10 @@ Changes to design doc:
 - Explained changes in nature of site if user is logged into a session
 - Elaborated on methods of filtering databases
 
-sultanA -- 2019-10-25 6:23 AM
+ahmedS -- 2019-10-25 6:23 AM
 Made small changes to the README.md
+
+ahmedS -- 2019-10-25 2:58 PM
+Merged the two Flask apps we currently have
+Fixed some bugs in the Flask app
+Recreated the database to include the users and posts tables

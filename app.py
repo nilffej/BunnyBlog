@@ -32,7 +32,7 @@ userList = get.fetchall()
 def root():
   return render_template('discover.html')
 
-app.route("/login", methods=["GET"])
+@app.route("/login", methods=["GET"])
 def login(msg=""):
   usrCheck = False
   pswrdCheck = False
