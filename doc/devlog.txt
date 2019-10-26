@@ -27,7 +27,7 @@ jeffL -- 2019-10-22 02:45 PM
 Added project flask template
 Made progress on Discover page HTML and linked to flask app
 
-leiaP -- 2019-10-24 02:35 PM
+leiaP -- 2019-10-25 02:35 PM
 Added prototype login html to test button link
 
 jeffL -- 2019-10-24 02:45 PM
