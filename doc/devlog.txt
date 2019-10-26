@@ -60,3 +60,9 @@ ahmedS -- 2019-10-25 2:58 PM
 Merged the two Flask apps we currently have
 Fixed some bugs in the Flask app
 Recreated the database to include the users and posts tables
+
+leiaP -- 2019-10-25 10:50 PM
+Edited to devlog
+Converted register page HTML to child of template using Jinja
+Added register page HTML to templates folder
+Edited discover page HTML to get a working register button
