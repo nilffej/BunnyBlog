@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "template.html" %}
+
+{% block head %} | Discover{% endblock %}
+
+{% block body %}
+{% if msg %}
+<h3>{{ msg }}</h3>
+{% endif %}
+    <form action="/register" method="GET" align="center">
+    	Username<br>
+    	<input type="text" name="username"><br><br>
+    	Password<br>
+    	<input type="password" name="password"><br><br>
+    	Confirm Password<br>
+    	<input type="password" name="confirmPass"><br><br>
+    	<button type="submit">Submit</button>
+    </form>
+    {% endblock %}
+    
+  </body>
+</html>
