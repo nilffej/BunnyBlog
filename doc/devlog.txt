@@ -27,9 +27,17 @@ jeffL -- 2019-10-22 02:45 PM
 Added project flask template
 Made progress on Discover page HTML and linked to flask app
 
+leiaP -- 2019-10-24 02:35 PM
+Added prototype login html to test button link
+
 jeffL -- 2019-10-24 02:45 PM
 Finished Discover page visual layout
 Added buttons to link to login page
+
+leiaP -- 2019-10-24 10:40 PM
+Added login page HTML & register page HTML
+Added in-progress database containing users table
+Added Flask app with SQL functions for login/register pages
 
 jeffL -- 2019-10-25 02:10 AM
 Fixed login page formatting from Leia's progress
@@ -43,6 +51,10 @@ Changes to design doc:
 
 ahmedS -- 2019-10-25 6:23 AM
 Made small changes to the README.md
+
+leiaP -- 2019-10-24 11:30 AM
+Edited Flask app for login/register pages
+- changed DB_FILE from "people.db" to "database.db"
 
 ahmedS -- 2019-10-25 2:58 PM
 Merged the two Flask apps we currently have
