@@ -52,9 +52,9 @@ Changes to design doc:
 ahmedS -- 2019-10-25 6:23 AM
 Made small changes to the README.md
 
-leiaP -- 2019-10-24 11:30 AM
+leiaP -- 2019-10-25 11:30 AM
 Edited Flask app for login/register pages
-- changed DB_FILE from "people.db" to "database.db"
+Changed DB_FILE from "people.db" to "database.db"
 
 ahmedS -- 2019-10-25 2:58 PM
 Merged the two Flask apps we currently have
@@ -66,3 +66,7 @@ Edited to devlog
 Converted register page HTML to child of template using Jinja
 Added register page HTML to templates folder
 Edited discover page HTML to get a working register button
+
+jeffL -- 2019-10-26 2:49 AM
+Added to database for testing purposes
+Read in posts from database to Discover page with Jinja
