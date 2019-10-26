@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 {% extends "template.html" %}
 
-{% block head %} | Discover{% endblock %}
+{% block title %} | Discover{% endblock %}
 
 {% block headerbuttons %}
 <form>
   <button title="discover" type="submit" formaction="/">Discover</button>
   <button title="login" type="submit" formaction="/login">Log In</button>
-  <button title="register" type="submit">Register</button>
+  <button title="register" type="submit" formaction="/register">Register</button>
 </form>
 {% endblock %}
 
@@ -19,11 +19,22 @@
     </td>
     <td>
       <h3>Discover</h3>
+    </tr>
 
-      <table width="100%" style="border: 1px solid black">
-        <tr><td></td></tr>
-      </table>
-
+    <tr>
+      <td></td>
+      <td>
+        <table width="100%">
+          {% for index in lengthNum %}
+          <tr style="border: 1px solid black">
+            <td style="border: 1px solid black">
+              <h2>{{entries[index][0]}}</h2><b>
+              <h4>{{entries[index][1]}} - {{entries[index][2]}}</h4><b>
+              <p>{{entries[index][3]}}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
     </td>
   </tr>
 </table>

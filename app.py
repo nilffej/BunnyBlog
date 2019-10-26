@@ -4,7 +4,7 @@
 # 2019-10-28
 
 import cgi
-import sqlite3 
+import sqlite3
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -24,13 +24,20 @@ db = sqlite3.connect(DB_FILE)  # open if file exists, otherwise create
 c = db.cursor()               # facilitate db ops
 
 retrieve = 'SELECT username, password FROM users;'
-
 get = db.execute(retrieve)
 userList = get.fetchall()
 
+entries = []
+foo = db.execute('SELECT title, username, date, content FROM posts;')
+rows = foo.fetchall()
+for item in rows:
+    entries.append([item[0],item[1],item[2],item[3]])
+
 @app.route("/")
 def root():
-  return render_template('discover.html')
+    print(entries)
+    return render_template('discover.html',
+    entries = entries, lengthNum = range(len(entries)))
 
 @app.route("/login", methods=["GET"])
 def login(msg=""):
@@ -39,7 +46,7 @@ def login(msg=""):
   if request.args:
     # Checks for all inputs to be filled
     if not bool(request.args["username"]) or not bool(request.args["password"]):
-      msg = "Fill in all the information"
+      msg = "Login fields missing"
     else:
       for row in userList:
           if request.args["username"] == row[0]:
@@ -56,6 +63,7 @@ def login(msg=""):
 @app.route("/register", methods=["GET"])
 def register(msg=""):
   usrCheck = False
+  print(request.args)
   if request.args:
      # Checks for all inputs to be filled
      if not bool(request.args["username"]) or not bool(request.args["password"]):
@@ -68,10 +76,10 @@ def register(msg=""):
                  usrCheck = True
      if usrCheck:
        if request.args["password"] == request.args["confirmPass"]:
-            insert = "INSERT INTO users VALUES ('{}', {});".format(
+            insert = "INSERT INTO users VALUES ('{}', '{}');".format(
                 request.args["username"], request.args["password"])
             c.execute(insert)
-            return redirect("login")
+            return redirect(url_for("login"))
        else:
             msg = "passwords do not match"
   return render_template("register.html", msg=msg)

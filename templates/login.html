@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends "template.html" %}
 
-{% block head %} | Discover{% endblock %}
+{% block title %} | Login{% endblock %}
 
 {% block body %}
 {% if msg %}
@@ -13,10 +13,10 @@
     Password<br>
   	<input type="password" name="password"><br><br>
   	<button type="submit">Submit</button>
+  </form>
 
-    <form action="/register">
-      <button type="submit">Register</button>
-    </form>
+  <form action="/register" align="center">
+    <button type="submit">Register</button>
   </form>
   {% endblock %}
 
