@@ -76,9 +76,12 @@ def register(msg=""):
                  usrCheck = True
      if usrCheck:
        if request.args["password"] == request.args["confirmPass"]:
-            insert = "INSERT INTO users VALUES ('{}', '{}');".format(
-                request.args["username"], request.args["password"])
+            insert = "INSERT INTO users VALUES ('{}', '{}', '{}');".format(
+                request.args["username"], request.args["password"], '/' + request.args["username"])
+            print(insert)
             c.execute(insert)
+            db.commit()
+            db.close()
             return redirect(url_for("login"))
        else:
             msg = "passwords do not match"
