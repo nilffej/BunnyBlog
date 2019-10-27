@@ -22,15 +22,19 @@
     </tr>
 
     <tr>
-      <td></td>
+      <td style="vertical-align: top">
+        {% for index in userNum %}
+          <p>{{users[index][0]}}</p>
+        {% endfor %}
+      </td>
       <td>
         <table width="100%">
-          {% for index in lengthNum %}
+          {% for index in postNum %}
           <tr style="border: 1px solid black">
             <td style="border: 1px solid black">
-              <h2>{{entries[index][0]}}</h2><b>
-              <h4>{{entries[index][1]}} - {{entries[index][2]}}</h4><b>
-              <p>{{entries[index][3]}}
+              <h2>{{entries[index][0]}}</h2>
+              <h4>{{entries[index][1]}} - {{entries[index][2]}}</h4>
+              <p>{{entries[index][3]}}</p>
             </td>
           </tr>
           {% endfor %}

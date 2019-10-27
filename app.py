@@ -27,17 +27,16 @@ retrieve = 'SELECT username, password FROM users;'
 get = db.execute(retrieve)
 userList = get.fetchall()
 
-entries = []
 foo = db.execute('SELECT title, username, date, content FROM posts;')
-rows = foo.fetchall()
-for item in rows:
-    entries.append([item[0],item[1],item[2],item[3]])
+entryList = foo.fetchall()
 
 @app.route("/")
 def root():
-    print(entries)
+    print(userList)
+    print(entryList)
     return render_template('discover.html',
-    entries = entries, lengthNum = range(len(entries)))
+    entries = entryList, postNum = range(len(entryList)),
+    users = userList, userNum = range(len(userList)))
 
 @app.route("/login", methods=["GET"])
 def login(msg=""):
