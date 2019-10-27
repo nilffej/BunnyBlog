@@ -32,11 +32,26 @@ entryList = foo.fetchall()
 
 @app.route("/")
 def root():
-    print(userList)
-    print(entryList)
-    return render_template('discover.html',
-    entries = entryList, postNum = range(len(entryList)),
-    users = userList, userNum = range(len(userList)))
+  print(userList)
+  print(entryList)
+  return render_template('entrydisplay.html',
+  title = "Discover", heading = "Discover",
+  entries = entryList, postNum = range(len(entryList)),
+  users = userList, userNum = range(len(userList)))
+
+@app.route("/userpage")
+def userpage():
+  for user in userList:
+    if request.args["username"] == user[0]:
+      userentries = []
+      for entry in entryList:
+        if entry[1] == request.args["username"]:
+          userentries.append(entry)
+      return render_template("entrydisplay.html",
+      title = "Profile - {}".format(request.args["username"]), heading = request.args["username"],
+      entries = userentries, postNum = range(len(userentries)),
+      users = userList, userNum = range(len(userList)))
+  return redirect(url_for("root"))
 
 @app.route("/login", methods=["GET"])
 def login(msg=""):
