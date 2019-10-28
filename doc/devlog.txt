@@ -79,3 +79,12 @@ Search bar navigates to user pages
 jeffL -- 2019-10-27 09:16 PM
 Added form to submit entries on profile pages
 Created new child Jinja file of entrydisplay called profile for entry writing
+
+ahmedS -- 2019-10-28 03:41 AM
+Added login sessions and fixed register functionality
+
+jeffL -- 2019-10-28 04:42 AM
+Added logout function
+Added post filtering for profiles
+Adjusted entry displays to be chronological
+Changed button displays according to session
