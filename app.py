@@ -60,27 +60,34 @@ def profile():
     entries = entryList, postNum = range(len(entryList)),
     users = userList, userNum = range(len(userList)))
 
-@app.route("/login", methods=["GET"])
-def login(msg=""):
+@app.route("/login")
+def login():
+  # if user already logged in, redirects back to discover
+  if 'user' in session:
+    return redirect(url_for('root'))
 
-  usrCheck = False
-  pswrdCheck = False
-  if request.args:
-    # Checks for all inputs to be filled
-    if not bool(request.args["username"]) or not bool(request.args["password"]):
-      msg = "Login fields missing"
-    else:
+  # checking to see if things were submitted
+  if (request.args):
+    if (bool(request.args["username"]) and bool(request.args["password"])):
+      # setting request.args to variables to make life easier
+      inpUser = request.args["username"]
+      inpPass = request.args["password"]
+
       for row in userList:
-          if request.args["username"] == row[0]:
-               usrCheck = True
-               if request.args["password"] == row[1]:
-                    pswrdCheck = True
-    if usrCheck and pswrdCheck:
-      session["usr"] = request.args["username"]
-      return redirect(url_for("profile"))
+        if inpUser == row[0]:
+          if inpPass == row[1]:
+            print("successful")
+            session['user'] = inpUser;
+            return(redirect(url_for("root")))
+          else:
+            print("fail!")
+            return(redirect(url_for("login")))
+
     else:
-      msg = "Username or Password is incorrect"
-  return render_template("login.html", msg=msg)
+      print("Login fields missing!")
+      return(redirect(url_for("login")))
+  
+  return render_template("login.html")
 
 @app.route("/register")
 

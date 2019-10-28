@@ -78,3 +78,7 @@ ahmedS -- 2019-10-28 2:26 AM
 Reworked user database to remove siteLoc field
 Fixed registration route - can now properly create accounts!
 Retroactively updated devlog from yesterday afternoon/evening
+
+ahmedS -- 2019-10-28 2:43 AM
+Fixed login route - should be functional!
+Added sessions back in
