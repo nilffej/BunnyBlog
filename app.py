@@ -23,16 +23,26 @@ DB_FILE = "bunnyblog.db"
 db = sqlite3.connect(DB_FILE)   # open if file exists, otherwise create
 c = db.cursor()                 # facilitate db ops
 
-get = c.execute('SELECT username, password FROM users;')
-userList = get.fetchall()
-
-@app.route("/")
-def root():
+def updateEntries():
     with sqlite3.connect(DB_FILE) as connection:
         cur = connection.cursor()
         foo = cur.execute('SELECT title, username, date, content FROM posts;')
         entryList = foo.fetchall()
         entryList.reverse()
+        return entryList
+
+def updateUsers():
+    with sqlite3.connect(DB_FILE) as connection:
+        cur = connection.cursor()
+        foo = cur.execute('SELECT username, password FROM users;')
+        userList = foo.fetchall()
+        userList.sort()
+        return userList
+
+@app.route("/")
+def root():
+    entryList = updateEntries()
+    userList = updateUsers()
     return render_template('entrydisplay.html',
     title = "Discover", heading = "Discover",
     entries = entryList, postNum = range(len(entryList)),
@@ -40,14 +50,11 @@ def root():
 
 @app.route("/userpage")
 def userpage():
-    with sqlite3.connect(DB_FILE) as connection:
-        cur = connection.cursor()
-        foo = cur.execute('SELECT title, username, date, content FROM posts;')
-        entryList = foo.fetchall()
-        entryList.reverse()
+    entryList = updateEntries()
+    userList = updateUsers()
     for user in userList:
         if request.args["username"] == user[0]:
-            if request.args["username"] == session["user"]:
+            if "user" in session and request.args["username"] == session["user"]:
                 return redirect(url_for("profile"))
             userentries = []
             for entry in entryList:
@@ -61,11 +68,8 @@ def userpage():
 
 @app.route("/profile")
 def profile():
-    with sqlite3.connect(DB_FILE) as connection:
-        cur = connection.cursor()
-        foo = cur.execute('SELECT title, username, date, content FROM posts;')
-        entryList = foo.fetchall()
-        entryList.reverse()
+    entryList = updateEntries()
+    userList = updateUsers()
     userentries = []
     for entry in entryList:
         if entry[1] == session['user']:
@@ -80,7 +84,6 @@ def profile2(USERNAME):
   if 'user' in session:
     if (USERNAME == session["user"]):
         return redirect(url_for("profile"))
-  
   with sqlite3.connect(DB_FILE) as connection:
     cur = connection.cursor()
     q = "SELECT title, username, date, content FROM posts;"
@@ -102,15 +105,16 @@ def addentry():
     dict = {}
     for item in request.args:
         if not request.args[item]:
-            with sqlite3.connect(DB_FILE) as connection:
-                cur = connection.cursor()
-                foo = cur.execute('SELECT title, username, date, content FROM posts;')
-                entryList = foo.fetchall()
-                entryList.reverse()
-            return render_template('profile.html',
-            title = "Discover", heading = "Discover",
-            entries = entryList, postNum = range(len(entryList)),
-            users = userList, userNum = range(len(userList)),
+            entryList = updateEntries()
+            userList = updateUsers()
+            userentries = []
+            for entry in entryList:
+                if entry[1] == session['user']:
+                    userentries.append(entry)
+            return render_template("profile.html",
+            title = "Profile - {}".format(session["user"]), heading = session["user"],
+            entries = userentries, postNum = range(len(userentries)),
+            users = userList, userNum = range(len(userList)), sessionstatus = "user" in session,
             msg = "All fields must be filled.")
     with sqlite3.connect(DB_FILE) as connection:
         cur = connection.cursor()
@@ -141,20 +145,21 @@ def login():
           if inpUser == row[0]:
             if inpPass == row[1]:
               session['user'] = inpUser
-              return(redirect(url_for("root")))
+              return(redirect(url_for("profile")))
             else:
               flash('Login credentials were incorrect. Please try again.')
               return(redirect(url_for("login")))
 
     else:
-      flash('Please make sure to fill all fields!')
+      flash('Login unsuccessful')
       return(redirect(url_for("login")))
 
   return render_template("login.html")
 
 @app.route("/logout")
 def logout():
-    session.pop('user')
+    if "user" in session:
+        session.pop('user')
     return redirect(url_for("root"))
 
 @app.route("/register")
@@ -182,6 +187,7 @@ def register():
   return render_template("register.html")
 
 def addUser(user, pswd, conf):
+  userList = updateUsers()
   for row in userList:
         if user == row[0]:
           flash('Username already taken. Please try again.')

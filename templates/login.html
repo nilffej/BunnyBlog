@@ -22,8 +22,8 @@
   	<button type="submit">Log In</button>
   </form>
   {% for message in get_flashed_messages() %}
-  <b>{{ message }}</b>
-  <br>
+  <br><br>
+  <center><b>{{ message }}</b></center>
   {% endfor %}
 {% endblock %}
 
