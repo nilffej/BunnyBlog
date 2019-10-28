@@ -82,36 +82,50 @@ def login(msg=""):
       msg = "Username or Password is incorrect"
   return render_template("login.html", msg=msg)
 
-
 @app.route("/register")
+
 def register():
   # if user already logged in, redirects back to discover
   if 'user' in session:
     return redirect(url_for('root'))
 
-  # if things have been submitted...
-  if request.args:
-    if not bool(request.args["username"]) or not bool(request.args["password"]):
-      flash('Please make sure to fill all fields!')
+  # checking to see if things were submitted
+  if (request.args):
+    if (bool(request.args["username"]) and bool(request.args["password"])):
+      # setting request.args to variables to make life easier
+      inpUser = request.args["username"]
+      inpPass = request.args["password"]
+      inpConf = request.args["confirmPass"]
+
+      if(addUser(inpUser, inpPass, inpConf)):
+         return redirect(url_for("login"))
+      else:
+        print("Fail!")
+        return(redirect(url_for("register")))
     else:
-      for row in userList:
-        if request.args["username"] == row[0]:
-          flash('Username is already taken! Try again.')
-          return redirect(url_for('register'))
-        else:
-          if request.args["password"] == request.args["confirmPass"]:
-            q = "INSERT INTO users VALUES('{}', '{}');".format(request.args["username"], request.args["password"])
-            print(q)
-            c.execute(q)
-            return redirect(url_for("login"))
-          else:
-            flash('Passwords do not match! Try again.')
-          
+      print('[ERROR] MISSING FIELDS.')
+      # flash('Please make sure to fill all fields!')
   return render_template("register.html")
+
+def addUser(user, pswd, conf):
+  for row in userList:
+        if user == row[0]:
+          print("username already taken")
+          return False
+  if (pswd == conf):
+    # SQLite3 is being weird with threading, so I've created a separate object
+    with sqlite3.connect(DB_FILE) as connection:
+      cur = connection.cursor()
+      q = "INSERT INTO users VALUES('{}', '{}');".format(user, pswd)
+      cur.execute(q)
+      connection.commit()
+    return True
+  else:
+    print("passwords don't match")
+    return False
 
 if __name__ == "__main__":
   app.debug = True
   app.run()
 
-db.commit()
 db.close()
