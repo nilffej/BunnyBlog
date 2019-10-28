@@ -93,3 +93,7 @@ ahmedS -- 2019-10-28 7:49 AM
 Fixed logout function
 Added functionality to view other people's profiles
 Edited more stuff in sessions
+
+ahmedS -- 2019-10-28 7:58 AM
+Added flashing error messages to register/login
+Finished project

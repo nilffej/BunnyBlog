@@ -22,8 +22,13 @@
     	Confirm Password<br>
     	<input type="password" name="confirmPass"><br><br>
     	<button type="submit">Register</button>
-    </form>
-    {% endblock %}
+	</form>
+	
+	{% for message in get_flashed_messages() %}
+	<b>{{ message }}</b>
+	<br>
+	{% endfor %}
+{% endblock %}
 
   </body>
 </html>

@@ -21,7 +21,11 @@
   	<input type="password" name="password"><br><br>
   	<button type="submit">Log In</button>
   </form>
-  {% endblock %}
+  {% for message in get_flashed_messages() %}
+  <b>{{ message }}</b>
+  <br>
+  {% endfor %}
+{% endblock %}
 
   </body>
 </html>

@@ -140,11 +140,11 @@ def login():
             session['user'] = inpUser;
             return(redirect(url_for("root")))
           else:
-            print("fail!")
+            flash('Login credentials were incorrect. Please try again.')
             return(redirect(url_for("login")))
 
     else:
-      print("Login fields missing!")
+      flash('Please make sure to fill all fields!')
       return(redirect(url_for("login")))
 
   return render_template("login.html")
@@ -169,18 +169,19 @@ def register():
       inpConf = request.args["confirmPass"]
 
       if(addUser(inpUser, inpPass, inpConf)):
-         return redirect(url_for("login"))
+        flash('Success! Please login.')
+        return redirect(url_for("login"))
       else:
-        print("Fail!")
         return(redirect(url_for("register")))
     else:
       print('[ERROR] MISSING FIELDS.')
-      # flash('Please make sure to fill all fields!')
+      flash('Please make sure to fill all fields!')
   return render_template("register.html")
 
 def addUser(user, pswd, conf):
   for row in userList:
         if user == row[0]:
+          flash('Username already taken. Please try again.')
           print("username already taken")
           return False
   if (pswd == conf):
@@ -192,7 +193,7 @@ def addUser(user, pswd, conf):
       connection.commit()
     return True
   else:
-    print("passwords don't match")
+    flash('Passwords do not match. Please try again.')
     return False
 
 if __name__ == "__main__":
