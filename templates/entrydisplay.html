@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "template.html" %}
+
+{% block title %} | {{title}}{% endblock %}
+
+{% block headerbuttons %}
+<form>
+  <button title="discover" type="submit" formaction="/">Discover</button>
+  <button title="login" type="submit" formaction="/login">Log In</button>
+  <button title="register" type="submit" formaction="/register">Register</button>
+</form>
+{% endblock %}
+
+{% block body %}
+<table width="100%">
+  <tr>
+    <td width="20%">
+      <h3>Users</h3>
+    </td>
+    <td>
+      <h2>{{heading}}</h2>
+    </tr>
+
+    <tr>
+      <td style="vertical-align: top">
+        <form action="/userpage">
+          View:<br> <input type="text" name="username">
+          <input type="submit" value="Submit">
+        </form><br>
+        {% for index in userNum %}
+          <p>{{users[index][0]}}</p>
+        {% endfor %}
+      </td>
+      <td>
+        <table width="100%">
+          {% for index in postNum %}
+          <tr style="border: 1px solid black">
+            <td style="border: 1px solid black">
+              <h2>{{entries[index][0]}}</h2>
+              <h4>{{entries[index][1]}} - {{entries[index][2]}}</h4>
+              <p>{{entries[index][3]}}</p>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+    </td>
+  </tr>
+</table>
+{% endblock %}
