@@ -7,25 +7,25 @@ BunnyBlog is a blog website designed by Team BunnyTruffles. Through BunnyBlog, v
 
 #### How to Run Our Project
 0. Install Flask
-```
-$ pip3 install flask
-```
+    ```
+    $ pip3 install flask
+     ```
 1. Clone our repo from GitHub.
-```
-$ git clone git@github.com:nilffej/BunnyBlog.git
-```
+    ```
+    $ git clone git@github.com:nilffej/BunnyBlog.git
+    ```
 2. Initiate a Flask virtual environment.
-- to create virtual environment
-```
-$ python3 -m venv hero
-```
-- to activate virtual environment
-```
-$ . ~/hero/bin/activate
-```
+    - to create virtual environment
+    ```
+    $ python3 -m venv hero
+    ```
+    - to activate virtual environment
+    ```
+    $ . ~/hero/bin/activate
+    ```
 
 3. Navigate to the BunnyBlog directory.
-- utilize ``` cd ``` to enter directory
+    - utilize `cd` to enter directory
 
 4. Run: `$ python app.py`
 5. Open a web browser and go to 127.0.0.1:5000
