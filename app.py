@@ -52,9 +52,13 @@ def userpage():
 
 @app.route("/profile")
 def profile():
-    return render_template('profile.html',
-    title = "Discover", heading = "Discover",
-    entries = entryList, postNum = range(len(entryList)),
+    userentries = []
+    for entry in entryList:
+        if entry[1] == session['user']:
+            userentries.append(entry)
+    return render_template("profile.html",
+    title = "Profile - {}".format(session["user"]), heading = session["user"],
+    entries = userentries, postNum = range(len(userentries)),
     users = userList, userNum = range(len(userList)))
 
 @app.route("/addentry")
@@ -68,10 +72,13 @@ def addentry():
             entries = entryList, postNum = range(len(entryList)),
             users = userList, userNum = range(len(userList)),
             msg = "All fields must be filled.")
-    c.execute("INSERT INTO posts VALUES ('jeff',{},{},{})".format(
-        request.args["entrydate"], request.args["entrytitle"], request.args["entrytext"]))
-    db.commit()
-    db.close()
+    with sqlite3.connect(DB_FILE) as connection:
+        cur = connection.cursor()
+        cur.execute("INSERT INTO posts VALUES ('{}','{}','{}','{}')".format(session["user"],
+            request.args["entrydate"], request.args["entrytitle"], request.args["entrytext"]))
+        foo = connection.execute('SELECT title, username, date, content FROM posts;')
+        entryList = foo.fetchall()
+        connection.commit()
     return redirect(url_for("profile"))
 
 @app.route("/login")
@@ -92,7 +99,7 @@ def login():
           if inpPass == row[1]:
             print("successful")
             session['user'] = inpUser;
-            return(redirect(url_for("root")))
+            return(redirect(url_for("profile")))
           else:
             print("fail!")
             return(redirect(url_for("login")))
