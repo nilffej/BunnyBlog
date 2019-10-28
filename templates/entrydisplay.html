@@ -7,6 +7,7 @@
 <form>
   <button title="discover" type="submit" formaction="/">Discover</button>
   {% if sessionstatus %}
+  <button title="profile" type="submit" formaction="/profile">My Profile</button>
   <button title="logout" type="submit" formaction="/logout">Log Out</button>
   {% else %}
   <button title="login" type="submit" formaction="/login">Log In</button>

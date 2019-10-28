@@ -23,15 +23,16 @@ DB_FILE = "bunnyblog.db"
 db = sqlite3.connect(DB_FILE)   # open if file exists, otherwise create
 c = db.cursor()                 # facilitate db ops
 
-get = db.execute('SELECT username, password FROM users;')
+get = c.execute('SELECT username, password FROM users;')
 userList = get.fetchall()
-
-foo = db.execute('SELECT title, username, date, content FROM posts;')
-entryList = foo.fetchall()
-
 
 @app.route("/")
 def root():
+    with sqlite3.connect(DB_FILE) as connection:
+        cur = connection.cursor()
+        foo = cur.execute('SELECT title, username, date, content FROM posts;')
+        entryList = foo.fetchall()
+        entryList.reverse()
     return render_template('entrydisplay.html',
     title = "Discover", heading = "Discover",
     entries = entryList, postNum = range(len(entryList)),
@@ -39,6 +40,11 @@ def root():
 
 @app.route("/userpage")
 def userpage():
+    with sqlite3.connect(DB_FILE) as connection:
+        cur = connection.cursor()
+        foo = cur.execute('SELECT title, username, date, content FROM posts;')
+        entryList = foo.fetchall()
+        entryList.reverse()
     for user in userList:
         if request.args["username"] == user[0]:
             if request.args["username"] == session["user"]:
@@ -55,6 +61,11 @@ def userpage():
 
 @app.route("/profile")
 def profile():
+    with sqlite3.connect(DB_FILE) as connection:
+        cur = connection.cursor()
+        foo = cur.execute('SELECT title, username, date, content FROM posts;')
+        entryList = foo.fetchall()
+        entryList.reverse()
     userentries = []
     for entry in entryList:
         if entry[1] == session['user']:
@@ -70,6 +81,11 @@ def addentry():
     dict = {}
     for item in request.args:
         if not request.args[item]:
+            with sqlite3.connect(DB_FILE) as connection:
+                cur = connection.cursor()
+                foo = cur.execute('SELECT title, username, date, content FROM posts;')
+                entryList = foo.fetchall()
+                entryList.reverse()
             return render_template('profile.html',
             title = "Discover", heading = "Discover",
             entries = entryList, postNum = range(len(entryList)),
@@ -79,8 +95,7 @@ def addentry():
         cur = connection.cursor()
         cur.execute("INSERT INTO posts VALUES ('{}','{}','{}','{}')".format(session["user"],
             request.args["entrydate"], request.args["entrytitle"], request.args["entrytext"]))
-        foo = connection.execute('SELECT title, username, date, content FROM posts;')
-        entryList = foo.fetchall()
+        foo = cur.execute('SELECT title, username, date, content FROM posts;')
         connection.commit()
     return redirect(url_for("profile"))
 
