@@ -53,6 +53,13 @@ def userpage():
       users = userList, userNum = range(len(userList)))
   return redirect(url_for("root"))
 
+@app.route("/profile")
+def profile():
+    return render_template('profile.html',
+    title = "Discover", heading = "Discover",
+    entries = entryList, postNum = range(len(entryList)),
+    users = userList, userNum = range(len(userList)))
+
 @app.route("/login", methods=["GET"])
 def login(msg=""):
   usrCheck = False
@@ -69,7 +76,7 @@ def login(msg=""):
                     pswrdCheck = True
     if usrCheck and pswrdCheck:
       session["usr"] = request.args["username"]
-      return redirect(url_for("myBlog"))
+      return redirect(url_for("profile"))
     else:
       msg = "Username or Password is incorrect"
   return render_template("login.html", msg=msg)
