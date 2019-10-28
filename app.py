@@ -11,12 +11,12 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import session
+from flask import flash
 from os import urandom
 
 app = Flask(__name__)
 
 app.secret_key = urandom(32)
-usr = "rando"
 
 DB_FILE = "bunnyblog.db"
 
@@ -62,6 +62,7 @@ def profile():
 
 @app.route("/login", methods=["GET"])
 def login(msg=""):
+
   usrCheck = False
   pswrdCheck = False
   if request.args:
@@ -81,33 +82,36 @@ def login(msg=""):
       msg = "Username or Password is incorrect"
   return render_template("login.html", msg=msg)
 
-@app.route("/register", methods=["GET"])
-def register(msg=""):
-  usrCheck = False
-  print(request.args)
+
+@app.route("/register")
+def register():
+  # if user already logged in, redirects back to discover
+  if 'user' in session:
+    return redirect(url_for('root'))
+
+  # if things have been submitted...
   if request.args:
-     # Checks for all inputs to be filled
-     if not bool(request.args["username"]) or not bool(request.args["password"]):
-       msg = "Fill in all the information"
-     else:
-       for row in userList:
-            if request.args["username"] == row[0]:
-                 msg = "username is already taken"
-            else:
-                 usrCheck = True
-     if usrCheck:
-       if request.args["password"] == request.args["confirmPass"]:
-            insert = "INSERT INTO users VALUES ('{}', '{}', '{}');".format(
-                request.args["username"], request.args["password"], '/' + request.args["username"])
-            print(insert)
-            c.execute(insert)
-            db.commit()
-            db.close()
+    if not bool(request.args["username"]) or not bool(request.args["password"]):
+      flash('Please make sure to fill all fields!')
+    else:
+      for row in userList:
+        if request.args["username"] == row[0]:
+          flash('Username is already taken! Try again.')
+          return redirect(url_for('register'))
+        else:
+          if request.args["password"] == request.args["confirmPass"]:
+            q = "INSERT INTO users VALUES('{}', '{}');".format(request.args["username"], request.args["password"])
+            print(q)
+            c.execute(q)
             return redirect(url_for("login"))
-       else:
-            msg = "passwords do not match"
-  return render_template("register.html", msg=msg)
+          else:
+            flash('Passwords do not match! Try again.')
+          
+  return render_template("register.html")
 
 if __name__ == "__main__":
   app.debug = True
   app.run()
+
+db.commit()
+db.close()
