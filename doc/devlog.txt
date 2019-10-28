@@ -70,3 +70,11 @@ Edited discover page HTML to get a working register button
 jeffL -- 2019-10-26 2:49 AM
 Added to database for testing purposes
 Read in posts from database to Discover page with Jinja
+
+ahmedS -- 2019-10-27 10:30 PM
+Began working on fixing registration and login
+
+ahmedS -- 2019-10-28 2:26 AM
+Reworked user database to remove siteLoc field
+Fixed registration route - can now properly create accounts!
+Retroactively updated devlog from yesterday afternoon/evening
