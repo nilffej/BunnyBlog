@@ -88,3 +88,8 @@ Added logout function
 Added post filtering for profiles
 Adjusted entry displays to be chronological
 Changed button displays according to session
+
+ahmedS -- 2019-10-28 7:49 AM
+Fixed logout function
+Added functionality to view other people's profiles
+Edited more stuff in sessions

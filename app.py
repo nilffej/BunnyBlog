@@ -75,6 +75,27 @@ def profile():
     entries = userentries, postNum = range(len(userentries)),
     users = userList, userNum = range(len(userList)), sessionstatus = "user" in session)
 
+@app.route("/profile/<USERNAME>")
+def profile2(USERNAME):
+  if 'user' in session:
+    if (USERNAME == session["user"]):
+        return redirect(url_for("profile"))
+  
+  with sqlite3.connect(DB_FILE) as connection:
+    cur = connection.cursor()
+    q = "SELECT title, username, date, content FROM posts;"
+    foo = cur.execute(q)
+    entryList = foo.fetchall()
+  userentries = []
+  for entry in entryList:
+    if entry[1] == USERNAME:
+      userentries.append(entry)
+  return render_template("entrydisplay.html",
+                         title="Profile - {}".format(USERNAME), heading=USERNAME,
+                         entries=userentries, postNum=range(len(userentries)),
+                         users=userList, userNum=range(len(userList)), sessionstatus="user" in session)
+
+
 @app.route("/addentry")
 def addentry():
     print(request.args)
@@ -117,7 +138,7 @@ def login():
           if inpPass == row[1]:
             print("successful")
             session['user'] = inpUser;
-            return(redirect(url_for("profile")))
+            return(redirect(url_for("root")))
           else:
             print("fail!")
             return(redirect(url_for("login")))
@@ -130,7 +151,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    del session["user"]
+    session.pop('user')
     return redirect(url_for("root"))
 
 @app.route("/register")
