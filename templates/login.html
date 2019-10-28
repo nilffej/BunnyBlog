@@ -3,6 +3,13 @@
 
 {% block title %} | Login{% endblock %}
 
+{% block headerbuttons %}
+<form>
+  <button title="discover" type="submit" formaction="/">Discover</button>
+  <button title="register" type="submit" formaction="/register">Register</button>
+</form>
+{% endblock %}
+
 {% block body %}
 {% if msg %}
 <h3>{{ msg }}</h3>
@@ -12,11 +19,7 @@
   	<input type="text" name="username"><br><br>
     Password<br>
   	<input type="password" name="password"><br><br>
-  	<button type="submit">Submit</button>
-  </form>
-
-  <form action="/register" align="center">
-    <button type="submit">Register</button>
+  	<button type="submit">Log In</button>
   </form>
   {% endblock %}
 

@@ -67,6 +67,15 @@ Converted register page HTML to child of template using Jinja
 Added register page HTML to templates folder
 Edited discover page HTML to get a working register button
 
-jeffL -- 2019-10-26 2:49 AM
+jeffL -- 2019-10-26 02:49 AM
 Added to database for testing purposes
 Read in posts from database to Discover page with Jinja
+
+jeffL -- 2019-10-27 02:14 PM
+Added user side panel and search bar
+Reduced discover and userpages to single entrydisplay.html
+Search bar navigates to user pages
+
+jeffL -- 2019-10-27 09:16 PM
+Added form to submit entries on profile pages
+Created new child Jinja file of entrydisplay called profile for entry writing
