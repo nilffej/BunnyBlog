@@ -116,7 +116,6 @@ def addentry():
         cur = connection.cursor()
         cur.execute("INSERT INTO posts VALUES ('{}','{}','{}','{}')".format(session["user"],
             request.args["entrydate"], request.args["entrytitle"], request.args["entrytext"]))
-        foo = cur.execute('SELECT title, username, date, content FROM posts;')
         connection.commit()
     return redirect(url_for("profile"))
 
@@ -133,15 +132,19 @@ def login():
       inpUser = request.args["username"]
       inpPass = request.args["password"]
 
-      for row in userList:
-        if inpUser == row[0]:
-          if inpPass == row[1]:
-            print("successful")
-            session['user'] = inpUser;
-            return(redirect(url_for("root")))
-          else:
-            flash('Login credentials were incorrect. Please try again.')
-            return(redirect(url_for("login")))
+      with sqlite3.connect(DB_FILE) as connection:
+        cur = connection.cursor()
+        q = 'SELECT username, password FROM users;'
+        foo = cur.execute(q)
+        userList = foo.fetchall()
+        for row in userList:
+          if inpUser == row[0]:
+            if inpPass == row[1]:
+              session['user'] = inpUser
+              return(redirect(url_for("root")))
+            else:
+              flash('Login credentials were incorrect. Please try again.')
+              return(redirect(url_for("login")))
 
     else:
       flash('Please make sure to fill all fields!')
