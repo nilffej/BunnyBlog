@@ -81,14 +81,11 @@ def profile():
 
 @app.route("/profile/<USERNAME>")
 def profile2(USERNAME):
+  userList = updateUsers()
   if 'user' in session:
     if (USERNAME == session["user"]):
         return redirect(url_for("profile"))
-  with sqlite3.connect(DB_FILE) as connection:
-    cur = connection.cursor()
-    q = "SELECT title, username, date, content FROM posts;"
-    foo = cur.execute(q)
-    entryList = foo.fetchall()
+  entryList = updateEntries()
   userentries = []
   for entry in entryList:
     if entry[1] == USERNAME:
