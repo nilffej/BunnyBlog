@@ -6,8 +6,12 @@
 {% block headerbuttons %}
 <form>
   <button title="discover" type="submit" formaction="/">Discover</button>
+  {% if sessionstatus %}
+  <button title="logout" type="submit" formaction="/logout">Log Out</button>
+  {% else %}
   <button title="login" type="submit" formaction="/login">Log In</button>
   <button title="register" type="submit" formaction="/register">Register</button>
+  {% endif %}
 </form>
 {% endblock %}
 

@@ -29,17 +29,20 @@ userList = get.fetchall()
 foo = db.execute('SELECT title, username, date, content FROM posts;')
 entryList = foo.fetchall()
 
+
 @app.route("/")
 def root():
     return render_template('entrydisplay.html',
     title = "Discover", heading = "Discover",
     entries = entryList, postNum = range(len(entryList)),
-    users = userList, userNum = range(len(userList)))
+    users = userList, userNum = range(len(userList)), sessionstatus = "user" in session)
 
 @app.route("/userpage")
 def userpage():
     for user in userList:
         if request.args["username"] == user[0]:
+            if request.args["username"] == session["user"]:
+                return redirect(url_for("profile"))
             userentries = []
             for entry in entryList:
                 if entry[1] == request.args["username"]:
@@ -47,7 +50,7 @@ def userpage():
             return render_template("entrydisplay.html",
             title = "Profile - {}".format(request.args["username"]), heading = request.args["username"],
             entries = userentries, postNum = range(len(userentries)),
-            users = userList, userNum = range(len(userList)))
+            users = userList, userNum = range(len(userList)), sessionstatus = "user" in session)
     return redirect(url_for("root"))
 
 @app.route("/profile")
@@ -59,7 +62,7 @@ def profile():
     return render_template("profile.html",
     title = "Profile - {}".format(session["user"]), heading = session["user"],
     entries = userentries, postNum = range(len(userentries)),
-    users = userList, userNum = range(len(userList)))
+    users = userList, userNum = range(len(userList)), sessionstatus = "user" in session)
 
 @app.route("/addentry")
 def addentry():
@@ -110,8 +113,12 @@ def login():
 
   return render_template("login.html")
 
-@app.route("/register")
+@app.route("/logout")
+def logout():
+    del session["user"]
+    return redirect(url_for("root"))
 
+@app.route("/register")
 def register():
   # if user already logged in, redirects back to discover
   if 'user' in session:
