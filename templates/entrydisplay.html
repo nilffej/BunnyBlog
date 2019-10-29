@@ -7,9 +7,11 @@
 <form>
   <button title="discover" type="submit" formaction="/">Discover</button>
   {% if sessionstatus %}
+  <!-- Displayed when logged in -->
   <button title="profile" type="submit" formaction="/profile">My Profile</button>
   <button title="logout" type="submit" formaction="/logout">Log Out</button>
   {% else %}
+  <!-- Displayed when NOT logged in -->
   <button title="login" type="submit" formaction="/login">Log In</button>
   <button title="register" type="submit" formaction="/register">Register</button>
   {% endif %}
@@ -36,6 +38,7 @@
           <p>{{users[index][0]}}</p>
         {% endfor %}
       </td>
+
       <td>
         {% block log %}
         {% endblock %}
@@ -51,6 +54,7 @@
           {% endfor %}
         </table>
     </td>
+
   </tr>
 </table>
 {% endblock %}

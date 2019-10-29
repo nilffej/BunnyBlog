@@ -89,11 +89,16 @@ Added post filtering for profiles
 Adjusted entry displays to be chronological
 Changed button displays according to session
 
-ahmedS -- 2019-10-28 7:49 AM
+ahmedS -- 2019-10-28 07:49 AM
 Fixed logout function
 Added functionality to view other people's profiles
 Edited more stuff in sessions
 
-ahmedS -- 2019-10-28 7:58 AM
+ahmedS -- 2019-10-28 07:58 AM
 Added flashing error messages to register/login
 Finished project
+
+jeffL -- 2019-10-28 11:42 PM
+Fixed bugs in page viewing from side user panel
+Reformatted error messages in register and login screen
+Added comments for readability

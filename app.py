@@ -23,22 +23,25 @@ DB_FILE = "bunnyblog.db"
 db = sqlite3.connect(DB_FILE)   # open if file exists, otherwise create
 c = db.cursor()                 # facilitate db ops
 
+# Function to return updated database table of entries
 def updateEntries():
     with sqlite3.connect(DB_FILE) as connection:
         cur = connection.cursor()
         foo = cur.execute('SELECT title, username, date, content FROM posts;')
         entryList = foo.fetchall()
-        entryList.reverse()
+        entryList.reverse() # Reverse for recent posts at top
         return entryList
 
+# Function to return updated database table of users
 def updateUsers():
     with sqlite3.connect(DB_FILE) as connection:
         cur = connection.cursor()
         foo = cur.execute('SELECT username, password FROM users;')
         userList = foo.fetchall()
-        userList.sort()
+        userList.sort() # Usernames sorted in alphabetical order
         return userList
 
+# Root directory is Discover page
 @app.route("/")
 def root():
     entryList = updateEntries()
@@ -48,14 +51,18 @@ def root():
     entries = entryList, postNum = range(len(entryList)),
     users = userList, userNum = range(len(userList)), sessionstatus = "user" in session)
 
+# Displays specific user's page based on input from User side panel
 @app.route("/userpage")
 def userpage():
     entryList = updateEntries()
     userList = updateUsers()
     for user in userList:
+        # Checks if username exists in userList
         if request.args["username"] == user[0]:
+            # User redirected to own profile if searched user matches user in session
             if "user" in session and request.args["username"] == session["user"]:
                 return redirect(url_for("profile"))
+            # userentries is filtered list of all entries by specific user
             userentries = []
             for entry in entryList:
                 if entry[1] == request.args["username"]:
@@ -66,10 +73,12 @@ def userpage():
             users = userList, userNum = range(len(userList)), sessionstatus = "user" in session)
     return redirect(url_for("root"))
 
+# Dispalys user's personal blog page and loads HTML with blog writing form
 @app.route("/profile")
 def profile():
     entryList = updateEntries()
     userList = updateUsers()
+    # userentries is filtered list of all entries by specific user
     userentries = []
     for entry in entryList:
         if entry[1] == session['user']:
@@ -79,6 +88,7 @@ def profile():
     entries = userentries, postNum = range(len(userentries)),
     users = userList, userNum = range(len(userList)), sessionstatus = "user" in session)
 
+# Displays specific user's page (for hyperlink on individual posts)
 @app.route("/profile/<USERNAME>")
 def profile2(USERNAME):
   userList = updateUsers()
@@ -95,11 +105,9 @@ def profile2(USERNAME):
                          entries=userentries, postNum=range(len(userentries)),
                          users=userList, userNum=range(len(userList)), sessionstatus="user" in session)
 
-
+# Function to add entry to posts table in database
 @app.route("/addentry")
 def addentry():
-    print(request.args)
-    dict = {}
     for item in request.args:
         if not request.args[item]:
             entryList = updateEntries()
@@ -179,7 +187,6 @@ def register():
       else:
         return(redirect(url_for("register")))
     else:
-      print('[ERROR] MISSING FIELDS.')
       flash('Please make sure to fill all fields!')
   return render_template("register.html")
 
@@ -188,7 +195,6 @@ def addUser(user, pswd, conf):
   for row in userList:
         if user == row[0]:
           flash('Username already taken. Please try again.')
-          print("username already taken")
           return False
   if (pswd == conf):
     # SQLite3 is being weird with threading, so I've created a separate object
