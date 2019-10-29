@@ -27,7 +27,7 @@ c = db.cursor()                 # facilitate db ops
 def updateEntries():
     with sqlite3.connect(DB_FILE) as connection:
         cur = connection.cursor()
-        foo = cur.execute('SELECT title, username, date, content FROM posts;')
+        foo = cur.execute('SELECT title, username, date, content FROM posts;') # Selects the title, username, date and content from all posts
         entryList = foo.fetchall()
         entryList.reverse() # Reverse for recent posts at top
         return entryList
@@ -36,12 +36,12 @@ def updateEntries():
 def updateUsers():
     with sqlite3.connect(DB_FILE) as connection:
         cur = connection.cursor()
-        foo = cur.execute('SELECT username, password FROM users;')
+        foo = cur.execute('SELECT username, password FROM users;') # Selects all username/password combinations
         userList = foo.fetchall()
         userList.sort() # Usernames sorted in alphabetical order
         return userList
 
-# Root directory is Discover page
+# Root directory is 'Discover' page
 @app.route("/")
 def root():
     entryList = updateEntries()
@@ -200,7 +200,7 @@ def addUser(user, pswd, conf):
     # SQLite3 is being weird with threading, so I've created a separate object
     with sqlite3.connect(DB_FILE) as connection:
       cur = connection.cursor()
-      q = "INSERT INTO users VALUES('{}', '{}');".format(user, pswd)
+      q = "INSERT INTO users VALUES('{}', '{}');".format(user, pswd) # Successfully registers new user
       cur.execute(q)
       connection.commit()
     return True
