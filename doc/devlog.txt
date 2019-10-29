@@ -96,9 +96,14 @@ Edited more stuff in sessions
 
 ahmedS -- 2019-10-28 07:58 AM
 Added flashing error messages to register/login
-Finished project
+Submitted project by deadline
 
 jeffL -- 2019-10-28 11:42 PM
 Fixed bugs in page viewing from side user panel
 Reformatted error messages in register and login screen
 Added comments for readability
+
+ahmedS -- 2019-10-28 7:58 AM
+Added a few extra comments
+Edited design doc (currently: V2) with the following changes:
+Edited data structure tables to properly reflect the project
