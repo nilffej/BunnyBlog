@@ -5,6 +5,7 @@
 
 import cgi
 import sqlite3
+import os
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -18,7 +19,9 @@ app = Flask(__name__)
 
 app.secret_key = urandom(32)
 
-DB_FILE = "bunnyblog.db"
+DIR = os.path.dirname(__file__) or "."
+DIR += "/"
+DB_FILE = DIR + "bunnyblog.db"
 
 db = sqlite3.connect(DB_FILE)   # open if file exists, otherwise create
 c = db.cursor()                 # facilitate db ops
